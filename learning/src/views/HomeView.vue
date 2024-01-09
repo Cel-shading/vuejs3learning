@@ -25,10 +25,14 @@ console.log(loading, error, getPokemon)
 </template>
 
 <style scoped>
+/* les carte sont regroupées 3 par 3 */
 .pokemon-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  margin: 1rem;
 }
+
+  
 </style>
