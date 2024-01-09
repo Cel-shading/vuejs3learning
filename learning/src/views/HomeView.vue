@@ -1,22 +1,34 @@
 <script setup lang="ts">
 import PokemonCard from '@/components/PokemonCard.vue'
-import axios from 'axios'
-import { onMounted, ref } from 'vue'
+import { usePokemonStore } from '@/stores/pokemon';
+import { storeToRefs } from 'pinia';
 
-const pokemons = ref([])
 
-onMounted(async () => {
-  const response = await axios.get('https://tyradex.vercel.app/api/v1/pokemon')
-  pokemons.value = response.data
-})
+const pokemonStore = usePokemonStore()
+const { loading, error, getPokemon } = storeToRefs(pokemonStore)
+console.log(loading, error, getPokemon)
 
 </script>
 
 <template>
   <h1 class="greetings">Welcome to the <span class="highlight">Pokédex</span>!</h1>
   <main>
-    <li v-for="pokemon in pokemons">
-      <PokemonCard :data="pokemon" />
-    </li>
+    <!-- in flex zone where the card cannot be shorter than the image-->
+    <div class="pokemon-list">
+      <span v-for="pokemon in getPokemon" :key="pokemon.pokedexId">
+        <span v-if="pokemon.pokedexId>0">
+          <PokemonCard :data="pokemon" />
+        </span>
+      </span>
+    </div>
   </main>
 </template>
+
+<style scoped>
+.pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+</style>

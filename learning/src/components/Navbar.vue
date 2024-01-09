@@ -1,0 +1,12 @@
+<script setup lang="ts"></script>
+
+<template>
+  <ul>
+    <li>
+      <router-link to="/">Home</router-link>
+    </li>
+    <li>
+      <router-link to="/collection">Collection</router-link>
+    </li>
+  </ul>
+</template>

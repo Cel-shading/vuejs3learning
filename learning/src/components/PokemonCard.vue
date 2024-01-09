@@ -1,13 +1,17 @@
 <script setup lang="ts">
+import Pokemon from '@models/pokemon'
+
 defineProps<{
-  data: any
+  data: Pokemon
 }>()
 </script>
 
 <template>
   <div class="pokemon-card">
-    <h1>{{ data.name }}</h1>
+    <h1>{{ data.name.fr }}</h1>
     <img :src="data.sprites.regular" :alt="data.name" />
+    <h3>Statistics</h3>
+    {{ data.stats  }}
   </div>
 </template>
 
