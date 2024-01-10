@@ -16,11 +16,11 @@ console.log(loading, error, getPokemon)
     <!-- in flex zone where the card cannot be shorter than the image-->
     <div class="pokemon-list">
       <span v-for="pokemon in getPokemon" :key="pokemon.pokedexId">
-        <span v-if="pokemon.pokedexId>0">
-          <PokemonCard :data="pokemon" />
-        </span>
+      <span v-if="pokemon.pokedexId>0">
+        <PokemonCard :data="pokemon" />
       </span>
-    </div>
+    </span>
+</div>
   </main>
 </template>
 
