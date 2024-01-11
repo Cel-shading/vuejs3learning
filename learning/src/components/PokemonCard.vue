@@ -24,10 +24,8 @@ const addSelectedPokemon = (pokemonData: Pokemon) => {
 
 }
 
-// open an menu on the card where we could pick a collection to add the pokemon to
 const openMenu = ref<boolean>(false)
 const menu = ref<HTMLElement>()
-
 
 const selectedPokemon = ref<Pokemon>()
 

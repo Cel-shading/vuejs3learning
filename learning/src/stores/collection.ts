@@ -15,16 +15,26 @@ export const useCollectionStore = defineStore('collection', () => {
     collections.value = collections.value.filter((_, index) => index !== collectionIndex)
   }
 
-  const addPokemonToCollection = (collectionIndex: number, pokemon: Pokemon) => {
+  const addPokemonToCollection = (collectionId: number, pokemon: Pokemon) => {
+    const collectionIndex = findCollectionIndexById(collectionId)
     if (collectionIndex >= 0 && collectionIndex < collections.value.length) {
       collections.value[collectionIndex].pokemon.push(pokemon)
     }
   }
 
-  const removePokemonFromCollection = (collectionIndex: number, pokemonIndex: number) => {
+  const removePokemonFromCollection = (collectionId: number, pokemonId: number) => {
+    const collectionIndex = findCollectionIndexById(collectionId)
+    const pokemonIndex = collections.value[collectionIndex].pokemon.findIndex(
+      (pokemon) => pokemon.pokedexId === pokemonId
+    )
+    console.log(collectionIndex, pokemonIndex)
     if (collectionIndex >= 0 && collectionIndex < collections.value.length) {
       collections.value[collectionIndex].pokemon.splice(pokemonIndex, 1)
     }
+  }
+
+  const findCollectionIndexById = (collectionId: number) => {
+    return collections.value.findIndex((collection) => collection.id === collectionId) as number
   }
 
   return {

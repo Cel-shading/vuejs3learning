@@ -12,13 +12,13 @@ const { ...collections } = storeToRefs(collectionStore)
 const newCollectionName = ref<string>('')
 const selectedCollection = ref<Collection>()
 
-const deletePokemon = () => {
-  console.log('delete')
+const deletePokemon = (collectionId: number, pokemonId: number) => {
+  removePokemonFromCollection(collectionId, pokemonId)
+  console.log('delete pokemon id: ' + pokemonId + ' from collection id: ' + collectionId)
 }
 
 const removeSelectedCollection = (id: number) => {
-  console.log(id)
-  removeCollection(id)
+  removeCollection(id-1)
 }
 
 console.log(collections.collections.value)
@@ -35,14 +35,14 @@ console.log(collections.collections.value)
             {{ collection.name }}
           </span>
         </div>
-        <button @click="removeSelectedCollection(collection.id)">Remove</button>
+        <button @click="removeSelectedCollection(collection.id-1)">Remove</button>
       </span>
     </div>
     <div class="pokemon-list">
       <span v-for="pokemon in selectedCollection?.pokemon" :key="pokemon.pokedexId">
         <span v-if="pokemon.pokedexId>0">
           <PokemonCard :data="pokemon"/>
-          <button @click="selectedCollection && removePokemonFromCollection(selectedCollection.id, pokemon.pokedexId)">Remove</button>
+          <button @click="selectedCollection && deletePokemon(selectedCollection.id, pokemon.pokedexId)">Remove</button>
         </span>
       </span>
     </div>
