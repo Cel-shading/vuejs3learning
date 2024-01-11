@@ -11,6 +11,10 @@ export const useCollectionStore = defineStore('collection', () => {
     collections.value.push(newCollection)
   }
 
+  const removeCollection = (collectionIndex: number) => {
+    collections.value = collections.value.filter((_, index) => index !== collectionIndex)
+  }
+
   const addPokemonToCollection = (collectionIndex: number, pokemon: Pokemon) => {
     if (collectionIndex >= 0 && collectionIndex < collections.value.length) {
       collections.value[collectionIndex].pokemon.push(pokemon)
@@ -23,5 +27,11 @@ export const useCollectionStore = defineStore('collection', () => {
     }
   }
 
-  return { collections, addCollection, addPokemonToCollection, removePokemonFromCollection }
+  return {
+    collections,
+    addCollection,
+    addPokemonToCollection,
+    removePokemonFromCollection,
+    removeCollection
+  }
 })

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type Collection from '@/models/Collection'
+import type Pokemon from '@/models/Pokemon';
 import { useCollectionStore } from '@/stores/collection'
 import { ref } from 'vue'
 
@@ -16,13 +17,15 @@ const getMaxId = (collection: Collection[]) => {
       maxId = collection[i].id
     }
   }
+  console.log(maxId)
   return maxId as number
 }
+
 const newCollection = ref<Collection>({
   id: getMaxId(collectionStore.collections) + 1,
   name: '',
   description: '',
-  pokemons: []
+  pokemon: [] as Pokemon[],
 })
 
 const submitForm = () => {
@@ -31,7 +34,12 @@ const submitForm = () => {
   addCollection(newCollection.value)
   name.value = ''
   description.value = ''
-  console.log(collectionStore.collections)
+  newCollection.value = {
+    id: getMaxId(collectionStore.collections) + 1,
+    name: '',
+    description: '',
+    pokemon: [] as Pokemon[],
+  }
 }
 </script>
 

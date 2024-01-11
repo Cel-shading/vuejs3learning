@@ -1,17 +1,27 @@
 <script setup lang="ts">
 import { useCollectionStore } from '@/stores/collection'
 import { storeToRefs } from 'pinia'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import PokemonCard from '@/components/PokemonCard.vue'
 import CollectionCreation from '@/components/CollectionCreation.vue'
-import Collection from '@/models/Collection'
+import type Collection from '@/models/Collection'
 
 const collectionStore = useCollectionStore()
-const { addPokemon, removePokemonFromCollection, addCollection } = collectionStore
-const { ...collection } = storeToRefs(collectionStore)
+const { removePokemonFromCollection, addCollection, removeCollection } = collectionStore
+const { ...collections } = storeToRefs(collectionStore)
 const newCollectionName = ref<string>('')
 const selectedCollection = ref<Collection>()
-console.log(collection)
+
+const deletePokemon = () => {
+  console.log('delete')
+}
+
+const removeSelectedCollection = (id: number) => {
+  console.log(id)
+  removeCollection(id)
+}
+
+console.log(collections.collections.value)
 </script>
 
 <template>
@@ -19,30 +29,28 @@ console.log(collection)
   <CollectionCreation />
   <main>
     <div class="collection-list">
-      <span v-for="element in collection" :key="element.id">
-        <div class="tooltip">
-          <button @click="selectedCollection = element">{{ element.name }}</button>
-          <span class="tooltiptext">{{ element.description }}</span>
+      <span v-for="collection in collections.collections.value" :key="collection.id">
+        <div>
+          <span @click="selectedCollection = collection">
+            {{ collection.name }}
+          </span>
         </div>
+        <button @click="removeSelectedCollection(collection.id)">Remove</button>
       </span>
     </div>
-    <!-- <div class="pokemon-list">
-      <span v-for="pokemon in selectedCollection" :key="pokemon.pokedexId">
-        <span v-if="pokemon.pokedexId > 0">
-          <PokemonCard :data="pokemon" />
-          <button @click="removePokemonFromCollection(pokemon.pokedexId)">Remove</button>
+    <div class="pokemon-list">
+      <span v-for="pokemon in selectedCollection?.pokemon" :key="pokemon.pokedexId">
+        <span v-if="pokemon.pokedexId>0">
+          <PokemonCard :data="pokemon"/>
+          <button @click="selectedCollection && removePokemonFromCollection(selectedCollection.id, pokemon.pokedexId)">Remove</button>
         </span>
       </span>
-    </div> -->
+    </div>
   </main>
 </template>
 
 <style scoped>
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
+
 .collection-list {
   display: flex;
   flex-wrap: wrap;
