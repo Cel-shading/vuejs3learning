@@ -11,7 +11,7 @@ console.log(loading, error, getPokemon)
 </script>
 
 <template>
-  <h1 class="greetings">Welcome to the <span class="highlight">Pokédex</span>!</h1>
+  <p class="gradient-text">Welcome to the <span class="font-bold">Pokédex</span>!</p>
   <main>
     <!-- in flex zone where the card cannot be shorter than the image-->
     <div class="pokemon-list">
@@ -33,6 +33,8 @@ console.log(loading, error, getPokemon)
   gap: 1rem;
   margin: 1rem;
 }
+
+
 
   
 </style>
