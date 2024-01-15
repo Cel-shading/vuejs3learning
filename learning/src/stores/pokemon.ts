@@ -1,5 +1,5 @@
 import type Pokemon from '@/models/Pokemon'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import axios from 'axios'
 import { defineStore } from 'pinia'
 import { computedAsync } from '@vueuse/core'
@@ -20,5 +20,15 @@ export const usePokemonStore = defineStore('pokemon', () => {
     }
   }, [])
 
-  return { loading, error, getPokemon }
+  const filteredPokemon = computed({
+    get() {
+      return getPokemon.value
+    },
+    set(value: Pokemon[]){
+      getPokemon.value = value
+    }
+  })
+
+
+  return { loading, error, getPokemon, filteredPokemon }
 })
