@@ -1,8 +1,7 @@
-import type Pokemon from '@/models/Pokemon'
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
 import type Collection from '@/models/Collection'
+import type Pokemon from '@/models/Pokemon'
 import { useStorage } from '@vueuse/core'
+import { defineStore } from 'pinia'
 
 export const useCollectionStore = defineStore('collection', () => {
   const collections = useStorage<Collection[]>('collections', [])

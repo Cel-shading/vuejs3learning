@@ -18,7 +18,8 @@ const deletePokemon = (collectionId: number, pokemonId: number) => {
 }
 
 const removeSelectedCollection = (id: number) => {
-  removeCollection(id-1)
+  removeCollection(id+1)
+  console.log('delete collection id: ' + id)
 }
 
 console.log(collections.collections.value)
