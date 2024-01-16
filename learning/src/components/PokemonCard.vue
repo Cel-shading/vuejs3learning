@@ -21,29 +21,31 @@ const addSelectedPokemon = (pokemonData: Pokemon, event: MouseEvent) => {
   onClickOutside(menu, () => {
     openMenu.value = false
   })
-  const rect = menu?.value?.$el.getBoundingClientRect()
-  menuPosition.value.x = event.clientX - rect.left
-  menuPosition.value.y = event.clientY - rect.top
+
+  menuPosition.value = {
+    x: event.pageX,
+    y: event.pageY,
+  }
 }
 
 const openMenu = ref<boolean>(false)
-const menu = ref<HTMLElement>()
+const menu = ref(null as any)
 
 const selectedPokemon = ref<Pokemon>()
 </script>
 
 <template>
   <div
-    class="flex flex-col items-center p-5 border-solid hover:border-dotted border-4 border-black rounded-md"
+    class="flex flex-col items-center p-5 border-solid hover:border-dotted border-4 border-black rounded-md cursor-pointer"
     @click.stop="addSelectedPokemon(data, $event)"
   >
     <h1>{{ data.name.fr }}</h1>
-    <img class="w-60" :src="data.sprites.regular" :alt="data.name" />
+    <img class="w-60" :src="data.sprites.regular" :alt="data.name.fr" />
     <h3>Statistics</h3>
     {{ data.stats }}
   </div>
   <div
-    class="z-50 absolute w-40"
+    class="z-50 absolute w-40 text-center bg-white border border-black rounded-md"
     v-if="openMenu"
     ref="menu"
     :style="{ top: `${menuPosition.y}px`, left: `${menuPosition.x}px` }"
@@ -52,12 +54,12 @@ const selectedPokemon = ref<Pokemon>()
       <p>You don't have any collection yet</p>
     </div>
     <div v-if="collections.collections.value.length > 0">
-      <p>Choose a collection</p>
+      <p>Add it to a collection</p>
       <div v-for="collection in collections.collections.value" :key="collection.id">
         <div>
           <span
-            class="menu-element"
-            @click="addPokemonToCollection(collection.id, selectedPokemon)"
+            class="menu-element cursor-pointer hover:bg-gray-200"
+            @click="addPokemonToCollection(collection.id, selectedPokemon as Pokemon)"
           >
             {{ collection.name }}
           </span>
@@ -86,7 +88,7 @@ h3 {
 }
 
 .pokemon-card {
-  @apply flex flex-col items-center;
+  @apply flex flex-col items-center cursor-pointer;
 }
 
 @media (min-width: 1024px) {

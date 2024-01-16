@@ -11,8 +11,8 @@ export const useCollectionStore = defineStore('collection', () => {
     collections.value.push(newCollection)
   }
 
-  const removeCollection = (collectionIndex: number) => {
-    collections.value = collections.value.filter((_, index) => index !== collectionIndex)
+  const removeCollection = (collectionId: number) => {
+    collections.value = collections.value.filter((collection) => collection.id !== collectionId)
   }
 
   const addPokemonToCollection = (collectionId: number, pokemon: Pokemon) => {

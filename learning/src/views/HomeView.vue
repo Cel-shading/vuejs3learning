@@ -4,16 +4,21 @@ import PokemonFilter from '@/components/PokemonFilter.vue'
 import type Pokemon from '@/models/Pokemon'
 import { usePokemonStore } from '@/stores/pokemon'
 import { storeToRefs } from 'pinia'
-import { onMounted } from 'vue'
+import { onBeforeMount, watch } from 'vue'
 
 const pokemonStore = usePokemonStore()
 const { loading, error, getPokemon, filteredPokemon } = storeToRefs(pokemonStore)
+const { setFilteredPokemon } = pokemonStore
+
+onBeforeMount(() => {
+  watch(getPokemon, (newVal: Pokemon[] ) => {
+    if (newVal) {
+      setFilteredPokemon(newVal as Pokemon[]);
+    }
+  }, { immediate: true as boolean });
+});
 
 console.log(getPokemon, filteredPokemon)
-
-onMounted(() => {
-  filteredPokemon
-})
 </script>
 
 <template>
