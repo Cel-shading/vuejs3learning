@@ -4,6 +4,7 @@ import { useCollectionStore } from '@/stores/collection'
 import { onClickOutside } from '@vueuse/core'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
+import ChartStats from './ChartStats.vue'
 
 defineProps<{
   data: Pokemon
@@ -36,13 +37,13 @@ const selectedPokemon = ref<Pokemon>()
 
 <template>
   <div
-    class="flex flex-col items-center p-5 border-solid hover:border-dotted border-4 border-black rounded-md cursor-pointer"
+    class="flex flex-col w-60 items-center p-5 border-solid hover:border-dotted border-4 border-black rounded-md cursor-pointer"
     @click.stop="addSelectedPokemon(data, $event)"
   >
     <h1>{{ data.name.fr }}</h1>
     <img class="w-60" :src="data.sprites.regular" :alt="data.name.fr" />
     <h3>Statistics</h3>
-    {{ data.stats }}
+    <ChartStats :data="data" />
   </div>
   <div
     class="z-50 absolute w-40 text-center bg-white border border-black rounded-md"

@@ -1,13 +1,15 @@
 <script setup lang="ts">
-defineProps<{
-  data: any
-}>()
-import { ref } from 'vue'
-import * as d3
+import { onMounted, ref, watch, defineProps } from 'vue'
+import * as d3 from 'd3'
+import type Pokemon from '@/models/Pokemon'
 
-const data = ref<any>(null)
+defineProps<{
+  data: Pokemon
+}>()
+
+
 </script>
 
 <template>
-  <div></div>
+  <svg ref="svgRef" width="960" height="500"></svg>
 </template>

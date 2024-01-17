@@ -28,12 +28,12 @@ const filterPokemon = () => {
   <div class="flex">
     <input
       @keyup.enter="filterPokemon()"
-      class="search-bar flex-1 w-90 m-5"
+      class="search-bar flex-1 w-90 mb-5 mt-5 mr-1"
       type="text"
       v-model="name"
       placeholder="Search for a pokemon"
     />
-    <button class="search-bar-button text-opacity-35" @click="filterPokemon()">Search</button>
+    <button class="search-bar-button border rounded-md mt-5 mb-5 p-1 hover:bg-slate-200" @click="filterPokemon()">Search</button>
   </div>
 </template>
 

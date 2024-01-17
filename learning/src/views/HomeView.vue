@@ -11,19 +11,23 @@ const { loading, error, getPokemon, filteredPokemon } = storeToRefs(pokemonStore
 const { setFilteredPokemon } = pokemonStore
 
 onBeforeMount(() => {
-  watch(getPokemon, (newVal: Pokemon[] ) => {
-    if (newVal) {
-      setFilteredPokemon(newVal as Pokemon[]);
-    }
-  }, { immediate: true as boolean });
-});
+  watch(
+    getPokemon,
+    (newVal: Pokemon[]) => {
+      if (newVal) {
+        setFilteredPokemon(newVal as Pokemon[])
+      }
+    },
+    { immediate: true as boolean }
+  )
+})
 
 console.log(getPokemon, filteredPokemon)
 </script>
 
 <template>
-  <p class="gradient-text">Welcome to the <span class="font-bold">Pokédex</span>!</p>
   <main>
+    <p class="gradient-text mt-5">Welcome to the <span class="font-bold">Pokédex</span>!</p>
     <PokemonFilter />
     <!-- in flex zone where the card cannot be shorter than the image-->
     <div class="pokemon-list">
